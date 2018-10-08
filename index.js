@@ -42,9 +42,8 @@
 
       if(topBar){
          topBar.style.display = 'none';
+         console.log('topbar removed');
       }
-
-      console.log('topbar removed');
    }
 
    function getUrlParams(url) {
