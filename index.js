@@ -19,6 +19,7 @@
       console.log('%c init asana enhancer', 'color: #77a7ba');
 
       taskListDetailsOnDblClick();
+      removeTopBar();
    }
 
    function taskListDetailsOnDblClick(){ //open task list details on double click
@@ -36,6 +37,16 @@
       e.target.parentNode.parentNode.parentNode.querySelector('.ItemRow-right .SubtaskTaskRow-detailsButton').click();
    }
 
+   function removeTopBar(){
+      let topBar = document.getElementById('topbar');
+
+      if(topBar){
+         topBar.style.display = 'none';
+      }
+
+      console.log('topbar removed');
+   }
+
    function getUrlParams(url) {
       let params = {};
       url.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
@@ -49,10 +60,9 @@
       XMLHttpRequest.prototype.open = function (method, url, async, user, pass) {
 
          this.addEventListener("readystatechange", function () {
-            let state = this.readyState;
 
             if (this.readyState === 4) {
-               let urlParams = getUrlParams(url);
+               let urlParams = getUrlParams(this.responseURL);
                if(!urlParams.idle){ //just re-initialise if not an idle request
                   initAsanaEnhancer();
                }
