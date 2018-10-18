@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Asana Enhancer
 // @namespace    https://app.asana.com
-// @version      0.1
+// @version      0.2
 // @description  Enhance asana web gui
 // @author       honsa
 // @include        https://app.asana.com/*
@@ -11,36 +11,36 @@
 // @grant        none
 // ==/UserScript==
 
-(function () {
+(function() {
    'use strict';
    initAsanaEnhancer();
 
-   function initAsanaEnhancer(){
+   function initAsanaEnhancer() {
       console.log('%c init asana enhancer', 'color: #77a7ba');
 
       taskListDetailsOnDblClick();
       removeTopBar();
    }
 
-   function taskListDetailsOnDblClick(){ //open task list details on double click
+   function taskListDetailsOnDblClick() { //open task list details on double click
 
       let taskListItems = document.querySelectorAll('.TaskList .SubtaskTaskRow-taskName');
 
-      for(let i = 0; i < taskListItems.length; i++){
+      for(let i = 0; i < taskListItems.length; i++) {
          taskListItems[i].addEventListener('dblclick', openTaskDetails);
       }
 
       console.log('show tasklist details on double click is active');
    }
 
-   function openTaskDetails(e){ //open task list details
+   function openTaskDetails(e) { //open task list details
       e.target.parentNode.parentNode.parentNode.querySelector('.ItemRow-right .SubtaskTaskRow-detailsButton').click();
    }
 
-   function removeTopBar(){
+   function removeTopBar() {
       let topBar = document.getElementById('topbar');
 
-      if(topBar){
+      if(topBar) {
          topBar.style.display = 'none';
          console.log('topbar removed');
       }
@@ -48,21 +48,21 @@
 
    function getUrlParams(url) {
       let params = {};
-      url.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+      url.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
          params[key] = value;
       });
 
       return params;
    }
 
-   (function (open) {
-      XMLHttpRequest.prototype.open = function (method, url, async, user, pass) {
+   (function(open) {
+      XMLHttpRequest.prototype.open = function(method, url, async, user, pass) {
 
-         this.addEventListener("readystatechange", function () {
+         this.addEventListener("readystatechange", function() {
 
-            if (this.readyState === 4) {
+            if(this.readyState === 4) {
                let urlParams = getUrlParams(this.responseURL);
-               if(!urlParams.idle){ //just re-initialise if not an idle request
+               if(!urlParams.idle) { //just re-initialise if not an idle request
                   initAsanaEnhancer();
                }
             }
