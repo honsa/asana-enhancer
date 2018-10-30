@@ -34,7 +34,7 @@
    }
 
    function openTaskDetails(e) { //open task list details
-      e.target.parentNode.parentNode.parentNode.querySelector('.ItemRow-right .SubtaskTaskRow-detailsButton').click();
+      e.target.parentNode.parentNode.parentNode.querySelector('.SubtaskTaskRow-detailsButton').click();
    }
 
    function removeTopBar() {
