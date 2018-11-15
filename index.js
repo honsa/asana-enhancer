@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Asana Enhancer
 // @namespace    https://app.asana.com
-// @version      0.3
+// @version      0.4
 // @description  Enhance asana web gui
 // @author       honsa
 // @include        https://app.asana.com/*
@@ -19,12 +19,11 @@
       console.log('%c init asana enhancer', 'color: #77a7ba');
 
       taskListDetailsOnDblClick();
-      removeTopBar();
+      hideTopBar();
       hideUpgradeBtn();
    }
 
    function taskListDetailsOnDblClick() { //open task list details on double click
-
       let taskListItems = document.querySelectorAll('.TaskList .SubtaskTaskRow-taskName');
 
       for(let i = 0; i < taskListItems.length; i++) {
@@ -38,21 +37,24 @@
       e.target.parentNode.parentNode.parentNode.querySelector('.SubtaskTaskRow-detailsButton').click();
    }
 
-   function removeTopBar() {
+   function hideTopBar() {
       let topBar = document.getElementById('topbar');
 
       if(topBar) {
          topBar.style.display = 'none';
-         console.log('topbar removed');
+         console.log('topbar hidden');
       }
    }
 
    function hideUpgradeBtn(){
        let upgradeBtn = document.querySelector('.TopbarPageHeaderGlobalActions-upgradeButton');
+       
        if(upgradeBtn){
           upgradeBtn.style.display = 'none';
+          console.log('upgrade button hidden');
        }
    }
+   
    function getUrlParams(url) {
       let params = {};
       url.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
