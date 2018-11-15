@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Asana Enhancer
 // @namespace    https://app.asana.com
-// @version      0.5
+// @version      0.7
 // @description  Enhance asana web interface
 // @author       honsa
 // @include        https://app.asana.com/*
@@ -16,7 +16,7 @@
    initAsanaEnhancer();
 
    function initAsanaEnhancer() {
-      console.log('%c init asana enhancer', 'color: #77a7ba');
+      console.log('%cInit asana enhancer', 'color: #77a7ba');
 
       taskListDetailsOnDblClick();
       hideTopBar();
