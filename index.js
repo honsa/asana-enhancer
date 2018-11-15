@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Asana Enhancer
 // @namespace    https://app.asana.com
-// @version      0.2
+// @version      0.3
 // @description  Enhance asana web gui
 // @author       honsa
 // @include        https://app.asana.com/*
@@ -20,6 +20,7 @@
 
       taskListDetailsOnDblClick();
       removeTopBar();
+      hideUpgradeBtn();
    }
 
    function taskListDetailsOnDblClick() { //open task list details on double click
@@ -46,6 +47,12 @@
       }
    }
 
+   function hideUpgradeBtn(){
+       let upgradeBtn = document.querySelector('.TopbarPageHeaderGlobalActions-upgradeButton');
+       if(upgradeBtn){
+          upgradeBtn.style.display = 'none';
+       }
+   }
    function getUrlParams(url) {
       let params = {};
       url.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
