@@ -5,4 +5,4 @@ Enhances the behaviour of the asana web interface.
 - TopBar hidden
 - Upgrade Button hidden
 
-## Ideas
+## Next
