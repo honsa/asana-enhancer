@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Asana Enhancer
 // @namespace    https://app.asana.com
-// @version      0.4
-// @description  Enhance asana web gui
+// @version      0.5
+// @description  Enhance asana web interface
 // @author       honsa
 // @include        https://app.asana.com/*
 // @include        http://app.asana.com/*
