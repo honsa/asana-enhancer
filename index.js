@@ -40,7 +40,7 @@
    function hideTopBar() {
       let topBar = document.getElementById('topbar');
 
-      if(topBar) {
+      if(topBar && !topBar.style.display === 'none') {
          topBar.style.display = 'none';
          console.log('topbar hidden');
       }
@@ -49,7 +49,7 @@
    function hideUpgradeBtn(){
        let upgradeBtn = document.querySelector('.TopbarPageHeaderGlobalActions-upgradeButton');
        
-       if(upgradeBtn){
+       if(upgradeBtn && !upgradeBtn.style.display === 'none'){
           upgradeBtn.style.display = 'none';
           console.log('upgrade button hidden');
        }
