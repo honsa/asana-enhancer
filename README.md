@@ -1,4 +1,6 @@
-### asana enhancer
-Enhance behaviour of the asana web interface.
+### Asana enhancer
+Enhances the behaviour of the asana web interface.
 
--SubTask List double click to see details.
+- SubTask list, double click to see details
+- TopBar hidden
+- Upgrade Button hidden
