@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Asana Enhancer
 // @namespace    https://app.asana.com
-// @version      0.7
+// @version      0.9.1
 // @description  Enhance asana web interface
 // @author       honsa
 // @include        https://app.asana.com/*
@@ -12,74 +12,85 @@
 // ==/UserScript==
 
 (function() {
-   'use strict';
-   initAsanaEnhancer();
+    'use strict';
+    initAsanaEnhancer();
 
-   function initAsanaEnhancer() {
-      console.log('%cInit asana enhancer', 'color: #77a7ba');
+    function initAsanaEnhancer() {
+        console.log('%cInit asana enhancer', 'color: #77a7ba');
 
-      taskListDetailsOnDblClick();
-      hideTopBar();
-      hideUpgradeBtn();
-   }
+        taskListDetailsOnDblClick();
+        hideTopBar();
+        hideUpgradeBtn();
+    }
 
-   function taskListDetailsOnDblClick() { //open task list details on double click
-      let taskListItems = document.querySelectorAll('.TaskList .SubtaskTaskRow-taskName');
+    function taskListDetailsOnDblClick() { //open task list details on double click
+        let taskListItems = document.querySelectorAll('.TaskList .SubtaskTaskRow-taskName');
 
-      for(let i = 0; i < taskListItems.length; i++) {
-         taskListItems[i].addEventListener('dblclick', openTaskDetails);
-      }
+        for(let i = 0; i < taskListItems.length; i++) {
+            taskListItems[i].addEventListener('dblclick', openTaskDetails);
+        }
 
-      console.log('show tasklist details on double click is active');
-   }
+        console.log('show tasklist details on double click is active');
+    }
 
-   function openTaskDetails(e) { //open task list details
-      e.target.parentNode.parentNode.parentNode.querySelector('.SubtaskTaskRow-detailsButton').click();
-   }
+    function openTaskDetails(e) { //open task list details
+        e.target.parentNode.parentNode.parentNode.querySelector('.SubtaskTaskRow-detailsButton').click();
+    }
 
-   function hideTopBar() {
-      let topBar = document.getElementById('topbar');
+    function hideTopBar() {
+        let topBar = document.getElementById('topbar');
 
-      if(topBar && !topBar.style.display === 'none') {
-         topBar.style.display = 'none';
-         console.log('topbar hidden');
-      }
-   }
+        if(topBar && topBar.style.display !== 'none') {
+            topBar.style.display = 'none';
+            console.log('topbar hidden');
+        }
+    }
 
-   function hideUpgradeBtn(){
-       let upgradeBtn = document.querySelector('.TopbarPageHeaderGlobalActions-upgradeButton');
-       
-       if(upgradeBtn && !upgradeBtn.style.display === 'none'){
-          upgradeBtn.style.display = 'none';
-          console.log('upgrade button hidden');
-       }
-   }
-   
-   function getUrlParams(url) {
-      let params = {};
-      url.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
-         params[key] = value;
-      });
+    function hideUpgradeBtn(){
+        let upgradeBtn = document.querySelector('[class*="upgradeButton"]');
 
-      return params;
-   }
+        if(upgradeBtn && upgradeBtn.style.display !== 'none'){
+            upgradeBtn.style.display = 'none';
+            console.log('upgrade button hidden');
+        }
+    }
 
-   (function(open) {
-      XMLHttpRequest.prototype.open = function(method, url, async, user, pass) {
+    function getUrlParams(url) {
+        let params = {};
+        url.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m, key, value) {
+            params[key] = value;
+        });
 
-         this.addEventListener("readystatechange", function() {
+        return params;
+    }
 
-            if(this.readyState === 4) {
-               let urlParams = getUrlParams(this.responseURL);
-               if(!urlParams.idle) { //just re-initialise if not an idle request
-                  initAsanaEnhancer();
-               }
-            }
-         }, false);
+    function waitForElementToDisplay(selector, ms) {
+        if(document.querySelector(selector)!=null) {
+            hideUpgradeBtn();
+        }
+        else {
+            setTimeout(function() {
+                waitForElementToDisplay(selector, ms);
+            }, ms);
+        }
+    }
 
-         open.call(this, method, url, async, user, pass);
-      };
+    (function(open) {
+        XMLHttpRequest.prototype.open = function(method, url, async, user, pass) {
 
-   })(XMLHttpRequest.prototype.open);
+            this.addEventListener("readystatechange", function() {
+
+                if(this.readyState === 4) {
+                    let urlParams = getUrlParams(this.responseURL);
+                    if(!urlParams.idle) { //just re-initialise if not an idle request
+                        initAsanaEnhancer();
+                    }
+                }
+            }, false);
+
+            open.call(this, method, url, async, user, pass);
+        };
+
+    })(XMLHttpRequest.prototype.open);
 
 })();
